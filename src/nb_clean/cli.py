@@ -100,11 +100,7 @@ def check(args: argparse.Namespace) -> None:
         notebook metadata such as language version.
 
     """
-    if args.inputs:
-        inputs: list[pathlib.Path] | list[TextIO] = expand_directories(args.inputs)
-    else:
-        inputs = [sys.stdin]
-
+    inputs = expand_directories(args.inputs) if args.inputs else [sys.stdin]
     states = []
     for input_ in inputs:
         name = "stdin" if input_ is sys.stdin else os.fspath(cast(pathlib.Path, input_))
